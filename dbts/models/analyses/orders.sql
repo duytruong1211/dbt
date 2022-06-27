@@ -7,18 +7,22 @@
     Try changing "table" to "view" below
 */
 
-{{ config(materialized='table') }}
+-- {{ config(materialized='table') }}
 
-with source_data as (
-
-    select 1 as id
-    union all
-    select null as id
-
-)
-
-select *
-from source_data
+with reviews as (
+select
+	r.order_id,
+	AVG(review_score) avg_review_score
+from
+	brazilian_data.order_reviews r
+group by 1
+	)
+select
+	o.*,
+	r.avg_review_score
+from 
+	brazilian_data.orders o 
+	left join reviews r on r.order_id = o.order_id
 
 /*
     Uncomment the line below to remove records with null `id` values
