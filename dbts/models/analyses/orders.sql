@@ -12,7 +12,7 @@
 with reviews as (
 select
 	r.order_id,
-	AVG(review_score) avg_review_score
+	round(AVG(review_score),2) avg_review_score
 from
 	brazilian_data.order_reviews r
 group by 1
@@ -22,7 +22,7 @@ select
 	order_id,
 	max(payment_sequential) num_payment,
 	string_agg(distinct payment_type, ', ') pmt_type,
-	avg(payment_installments) avg_pmt_installment,
+	round(avg(payment_installments),2) avg_pmt_installment,
 	sum(payment_value) order_value
 from
 	brazilian_data.order_payments
