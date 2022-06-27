@@ -12,7 +12,7 @@
 with reviews as (
 select
 	r.order_id,
-	AVG(review_score) avg_review_score
+	round(AVG(review_score),2) avg_review_score
 from
 	brazilian_data.order_reviews r
 group by 1
