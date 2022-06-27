@@ -23,7 +23,6 @@ select
 from 
 	brazilian_data.orders o 
 	left join reviews r on r.order_id = o.order_id
-limit 100
 /*
     Uncomment the line below to remove records with null `id` values
 */
