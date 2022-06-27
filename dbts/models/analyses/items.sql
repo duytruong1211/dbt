@@ -1,7 +1,4 @@
-{
-{ config
-(materialized='table') }}
-
+{{config(materialized='table')}}
 with
     name_length
     as
