@@ -39,7 +39,8 @@ select
 	p.num_payment,
 	p.pmt_type,
 	p.avg_pmt_installment,
-	r.avg_review_score
+	r.avg_review_score,
+	i.num_items
 from 
 	brazilian_data.orders o 
 	left join reviews r on r.order_id = o.order_id
