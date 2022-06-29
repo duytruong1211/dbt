@@ -17,6 +17,12 @@ from
 	brazilian_data.order_reviews r
 group by 1
 	),
+items as (
+select order_id,
+		max(order_item_id) num_items	
+from brazilian_data.order_items 
+group by 1
+),
 payments as (
 select
 	order_id,
@@ -38,6 +44,7 @@ from
 	brazilian_data.orders o 
 	left join reviews r on r.order_id = o.order_id
 	left join payments p on p.order_id  = o.order_id
+	left join items i on i.order_id = o.order_id
 /*
     Uncomment the line below to remove records with null `id` values
 */
