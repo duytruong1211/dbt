@@ -33,7 +33,12 @@ select
 from
 	brazilian_data.order_payments
 group by 1
-	)
+	),
+bad_data as (
+select order_id  from brazilian_data.orders o
+where  (o.order_delivered_customer_date::date < o.order_approved_at::date) or
+ (order_status = 'delivered' and order_delivered_customer_date is null)
+)
 select
 	o.*,
 	p.num_payment,
@@ -43,9 +48,14 @@ select
 	i.num_items
 from 
 	brazilian_data.orders o 
+	left join bad_data on bad_data.order_id = o.order_id 
 	left join reviews r on r.order_id = o.order_id
 	left join payments p on p.order_id  = o.order_id
 	left join items i on i.order_id = o.order_id
+where bad_data.order_id is null 
+
+
+
 /*
     Uncomment the line below to remove records with null `id` values
 */
