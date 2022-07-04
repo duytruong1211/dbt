@@ -3,9 +3,9 @@ version: 2
 
 models:
   - name: orders
-    description: "A starter dbt model"
+    description: "Contain order, payment, review, user"
   - name: items
-    description: "Items model"
+    description: "Contain product, seller, items"
     # columns:
     #   - name: order_id
     #     description: "The primary key for this table"
