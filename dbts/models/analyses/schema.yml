@@ -6,8 +6,6 @@ models:
     description: "A starter dbt model"
   - name: items
     description: "Items model"
-  - name: customers
-    description: "Customers model"
     # columns:
     #   - name: order_id
     #     description: "The primary key for this table"
