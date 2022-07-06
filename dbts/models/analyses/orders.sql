@@ -47,6 +47,7 @@ select
 		END
 	) as pmt_type,
 	p.avg_pmt_installment,
+	p.order_value,
 	r.avg_review_score,
 	(
 		CASE
