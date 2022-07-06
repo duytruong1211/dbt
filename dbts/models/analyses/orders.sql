@@ -51,7 +51,14 @@ select
 	p.pmt_type,
 	p.avg_pmt_installment,
 	r.avg_review_score,
-	i.num_items,
+	(
+		CASE
+		WHEN i.num_items IS NULL THEN
+			0
+		ELSE
+			i.num_items
+		END
+	) as num_items, 
 	ui.customer_unique_id,
 	ui.customer_city,
 	ui.customer_state 
@@ -65,6 +72,7 @@ from
 where bad_data.order_id is null
 )
 select* from result
+
 
 
 

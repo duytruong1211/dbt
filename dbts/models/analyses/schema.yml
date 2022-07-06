@@ -4,14 +4,19 @@ version: 2
 models:
   - name: orders
     description: "Contain order, payment, review, user"
+    columns:
+      - name: order_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
   - name: items
     description: "Contain product, seller, items"
-    # columns:
-    #   - name: order_id
-    #     description: "The primary key for this table"
-    #     tests:
-    #       - unique
-    #       - not_null
+    columns:
+      - name: order_id
+        description: "The primary key for this table"
+        tests:
+          - not_null
 
   # - name: my_second_dbt_model
   #   description: "A starter dbt model"
