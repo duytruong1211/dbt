@@ -1,14 +1,4 @@
-
-/*
-    Welcome to your first dbt model!
-    Did you know that you can also configure models directly within SQL files?
-    This will override configurations stated in dbt_project.yml
-
-    Try changing "table" to "view" below
-*/
-
 -- {{ config(materialized='table') }}
-
 with reviews as (
 select
 	r.order_id,
@@ -48,7 +38,14 @@ select
 	o.order_delivered_customer_date,
 	o.order_estimated_delivery_date,
 	p.num_payment,
-	p.pmt_type,
+	(
+		CASE
+		WHEN p.pmt_type IS NULL THEN
+			'not_defined'
+		ELSE
+			p.pmt_type
+		END
+	) as pmt_type,
 	p.avg_pmt_installment,
 	r.avg_review_score,
 	(
@@ -74,10 +71,3 @@ where bad_data.order_id is null
 select* from result
 
 
-
-
-/*
-    Uncomment the line below to remove records with null `id` values
-*/
-
--- where id is not null
