@@ -33,11 +33,11 @@ result as (
 select
 	o.order_id ,
 	o.order_status,
-	o.order_approved_at,
-	o.order_purchase_timestamp,
-	o.order_delivered_carrier_date,
-	o.order_delivered_customer_date,
-	o.order_estimated_delivery_date,
+	o.order_purchase_timestamp::date,
+	o.order_approved_at::date,
+	o.order_delivered_carrier_date::date,
+	o.order_delivered_customer_date::date,
+	o.order_estimated_delivery_date::date,
 	p.num_payment,
 	(
 		CASE
