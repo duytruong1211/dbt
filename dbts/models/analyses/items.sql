@@ -23,5 +23,7 @@ with
             left join brazilian_data.sellers s on oi.seller_id = s.seller_id
         order by oi.index
     )
-select*
-from results2
+select i.*, o.order_purchase_timestamp  
+from results2 i left join
+brazilian_data.orders o 
+on i.order_id =o.order_id 
