@@ -2,11 +2,13 @@
 with reviews as (
 select
 	r.order_id,
-	round(AVG(review_score),2) avg_review_score
+	r.review_score,
+	r.review_comment_title,
+	r.review_comment_message,
+	rank() over(partition by r.order_id order by r.review_answer_timestamp desc) ranks 
 from
 	brazilian_data.order_reviews r
-group by 1
-	),
+),
 items as (
 select order_id,
 		max(order_item_id) num_items	
@@ -49,7 +51,9 @@ select
 	) as pmt_type,
 	p.avg_pmt_installment,
 	p.order_value,
-	r.avg_review_score,
+	r.review_score,
+	r.review_comment_title,
+	r.review_comment_message,
 	(
 		CASE
 		WHEN i.num_items IS NULL THEN
@@ -64,12 +68,12 @@ select
 from 
 	brazilian_data.orders o 
 	left join bad_data on bad_data.order_id = o.order_id 
-	left join reviews r on r.order_id = o.order_id
+	left join reviews r on r.order_id = o.order_id and r.ranks = 1
 	left join payments p on p.order_id  = o.order_id
 	left join items i on i.order_id = o.order_id
 	inner join brazilian_data.user_info ui on ui.customer_id = o.customer_id 
 where bad_data.order_id is null
 )
-select* from result
+select* from result 
 
 
